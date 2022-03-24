@@ -1,6 +1,7 @@
 package main
 
 import (
+	"html/template"
 	"os"
 
 	"github.com/SowinskiBraeden/BugBeGone/routes"
@@ -13,10 +14,18 @@ import (
 func main() {
 	// Create a new engine
 	engine := html.New("./views", ".html")
+	engine.AddFunc(
+		// add unescape function
+		"unescape", func(s string) template.HTML {
+			return template.HTML(s)
+		},
+	)
 
 	app := fiber.New(fiber.Config{
 		Views: engine,
 	})
+
+	app.Static("/static", "./public")
 
 	app.Use(cors.New(cors.Config{
 		AllowCredentials: true,
