@@ -3,8 +3,8 @@ module github.com/SowinskiBraeden/BugBeGone
 go 1.17
 
 require (
-	github.com/gofiber/fiber/v2 v2.30.0
-	github.com/gofiber/template v1.6.25
+	github.com/gofiber/fiber/v2 v2.31.0
+	github.com/gofiber/template v1.6.26
 	github.com/google/uuid v1.1.2
 	github.com/joho/godotenv v1.4.0
 	go.mongodb.org/mongo-driver v1.8.4
@@ -12,6 +12,7 @@ require (
 )
 
 require (
+	github.com/SowinskiBraeden/gfbmb v0.0.0-20220411232833-d7374a8d6af0
 	github.com/andybalholm/brotli v1.0.4 // indirect
 	github.com/go-stack/stack v1.8.0 // indirect
 	github.com/golang/snappy v0.0.3 // indirect

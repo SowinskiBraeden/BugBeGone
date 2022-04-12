@@ -11,7 +11,7 @@ import (
 
 	"github.com/SowinskiBraeden/BugBeGone/database"
 	"github.com/SowinskiBraeden/BugBeGone/models"
-	"github.com/SowinskiBraeden/BugBeGone/render"
+	"github.com/SowinskiBraeden/gfbmb/messageBox"
 	"github.com/gofiber/fiber/v2"
 	"github.com/google/uuid"
 	"go.mongodb.org/mongo-driver/bson"
@@ -38,7 +38,7 @@ func Register(c *fiber.Ctx) error {
 	if email == "" {
 		cancel()
 		return c.Status(fiber.StatusBadRequest).Render("register", fiber.Map{
-			"errorMsg": render.NewWarningBox("Missing Email"),
+			"errorMsg": messageBox.NewWarningBox("Missing Email"),
 			"username": username,
 			"email":    email,
 		})
@@ -46,7 +46,7 @@ func Register(c *fiber.Ctx) error {
 	if pass1 == "" {
 		cancel()
 		return c.Status(fiber.StatusBadRequest).Render("register", fiber.Map{
-			"errorMsg": render.NewWarningBox("Missing Password"),
+			"errorMsg": messageBox.NewWarningBox("Missing Password"),
 			"username": username,
 			"email":    email,
 		})
@@ -54,7 +54,7 @@ func Register(c *fiber.Ctx) error {
 	if pass2 == "" {
 		cancel()
 		return c.Status(fiber.StatusBadRequest).Render("register", fiber.Map{
-			"errorMsg": render.NewWarningBox("Please retype your password"),
+			"errorMsg": messageBox.NewWarningBox("Please retype your password"),
 			"username": username,
 			"email":    email,
 		})
@@ -62,7 +62,7 @@ func Register(c *fiber.Ctx) error {
 	if username == "" {
 		cancel()
 		return c.Status(fiber.StatusBadRequest).Render("register", fiber.Map{
-			"errorMsg": render.NewWarningBox("Missing Username"),
+			"errorMsg": messageBox.NewWarningBox("Missing Username"),
 			"username": username,
 			"email":    email,
 		})
@@ -78,7 +78,7 @@ func Register(c *fiber.Ctx) error {
 	if err != nil {
 		cancel()
 		return c.Status(fiber.StatusInternalServerError).Render("register", fiber.Map{
-			"errorMsg": render.NewWarningBox("Failed to search database"),
+			"errorMsg": messageBox.NewWarningBox("Failed to search database"),
 			"username": username,
 			"email":    email,
 		})
@@ -86,7 +86,7 @@ func Register(c *fiber.Ctx) error {
 	if count > 0 {
 		cancel()
 		return c.Status(fiber.StatusInternalServerError).Render("register", fiber.Map{
-			"errorMsg": render.NewWarningBox("An account already exists with that email or username"),
+			"errorMsg": messageBox.NewWarningBox("An account already exists with that email or username"),
 			"username": username,
 			"email":    email,
 		})
@@ -95,7 +95,7 @@ func Register(c *fiber.Ctx) error {
 	if pass1 != pass2 {
 		cancel()
 		return c.Status(fiber.StatusBadRequest).Render("register", fiber.Map{
-			"errorMsg": render.NewWarningBox("The passwords don't match"),
+			"errorMsg": messageBox.NewWarningBox("The passwords don't match"),
 			"username": username,
 			"email":    email,
 		})
@@ -105,7 +105,7 @@ func Register(c *fiber.Ctx) error {
 	if user.CheckPasswordStrength(pass1) {
 		cancel()
 		return c.Status(fiber.StatusBadRequest).Render("register", fiber.Map{
-			"errorMsg": render.NewWarningBox("Your password must contain at least 1 lowercase, 1 uppercase & 1 special character"),
+			"errorMsg": messageBox.NewWarningBox("Your password must contain at least 1 lowercase, 1 uppercase & 1 special character"),
 			"username": username,
 			"email":    email,
 		})
@@ -115,7 +115,7 @@ func Register(c *fiber.Ctx) error {
 	if accountType != "T" && accountType != "R" && accountType != "A" {
 		cancel()
 		return c.Status(fiber.StatusBadRequest).Render("register", fiber.Map{
-			"errorMsg": render.NewWarningBox("There appears to be an error with your account type, please try again"),
+			"errorMsg": messageBox.NewWarningBox("There appears to be an error with your account type, please try again"),
 			"username": username,
 			"email":    email,
 		})
