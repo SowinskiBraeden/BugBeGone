@@ -5,7 +5,7 @@
    --black: #191b17;
    --transition: all 0.5s ease-in-out;
 }
-*{
+body {
    font-family: 'Hind Siliguri', sans-serif;
    padding: 0;
    margin: 0;
@@ -74,7 +74,7 @@ section{
 
 /* header */
 .header{
-   background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.7)), url(../assets/header-bg.jpg);
+   background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.7)), url(../images/header-bg.jpg);
    min-height: 100vh;
    background-position: center;
    background-size: cover;
@@ -238,37 +238,6 @@ section{
    border-radius: 2px;
    margin-right: 1.4rem;
 }
-/* video */
-.video{
-   background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.7)), url(../assets/video-bg.jpg);
-   background-size: cover;
-   background-position: center;
-   background-attachment: fixed;
-   background-repeat: no-repeat;
-   color: #fff;
-   text-align: center;
-}
-.video a{
-   font-size: 2.2rem;
-   color: #fff;
-   width: 65px;
-   height: 65px;
-   border-radius: 50%;
-   background-color: var(--mount-meadow);
-   padding-left: 7px;
-   margin: 0 auto;
-}
-.video h2{
-   font-size: 2rem;
-   color: var(--white-smoke);
-   padding: 1.2rem 0;
-}
-.video p{
-   font-size: 1.1rem;
-   letter-spacing: 1px;
-   color: var(--white-smoke);
-   opacity: 0.7;
-}
 
 /* team */
 .team .row{
@@ -390,48 +359,6 @@ section{
    opacity: 0.7;
 }
 
-/* testimonial */
-.testimonial{
-   background-image: linear-gradient(rgba(27, 188, 156, 0.8), rgba(27, 188, 156, 0.9)), url(../assets/testimonial-bg.jpg);
-   background-size: cover;
-   background-repeat: no-repeat;
-   background-position: center;
-   background-attachment: fixed;
-}
-.testimonial .title h2,
-.testimonial .title{
-   color: #fff;
-}
-.testimonial .row{
-   margin-top: 2rem;
-}
-.testimonial-img{
-   border: 4px solid #fff;
-   width: 120px;
-   height: 120px;
-   border-radius: 50%;
-   margin: 2.5rem auto;
-   padding: 0.5rem;
-}
-.testimonial-img img{
-   border-radius: 50%;
-}
-.testimonial-item{
-   text-align: center;
-}
-.testimonial-item p{
-   font-size: 1.3rem;
-   color: var(--white-smoke);
-   line-height: 1.7;
-}
-.testimonial-item span{
-   margin-top: 0.7rem;
-   display: block;
-   font-size: 1.1rem;
-   color: #fff;
-   font-weight: 500;
-}
-
 /* contact */
 .contact .row{
    margin-top: 2rem;
@@ -511,15 +438,6 @@ section{
 .footer-links a:hover{
    background: var(--mount-meadow);
 }
-
-
-
-
-
-
-
-
-
 
 
 /* #### Media Queries #### */

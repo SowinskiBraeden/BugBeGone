@@ -1,0 +1,192 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+*, *:after, *:before {
+  box-sizing: border-box;
+}
+body {
+  background: #A0A9CC;
+  color: #fff;
+  font-size: 1.5em;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", sans-serif;
+  font-weight: 100;
+  text-align: center;
+}
+.container {
+  background: #B7BED8;
+  color: #6A79A6;
+  display: inline-block;
+  padding: 0em 2em;
+  margin: 6em auto;
+  box-shadow: 0 50px 50px rgba(0,0,0,0.2);
+}
+.container .navigation {
+  text-align: left;
+}
+.container .navigation ol {
+  list-style: none;
+  background: #B7BED8;
+  position: absolute;
+  padding: 30px 0;
+  width: 600px;
+  z-index: 100;
+  margin-bottom: 30px;
+}
+.container .navigation ol li {
+  display: inline-block;
+  margin-right: 27px;
+  font-size: 0.7em;
+  max-width: 20%;
+  text-align: left;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.container .navigation ol li a {
+  color: #fff;
+  text-decoration: none;
+  position: relative;
+  z-index: 2;
+  cursor: pointer;
+  opacity: 0;
+}
+.container .navigation ol li a.done {
+  opacity: 1;
+}
+.container .sign-form {
+  width: 600px;
+  text-align: left;
+  margin: 85px 0 0 0;
+}
+.container .sign-form #next-page {
+  opacity: 0;
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 20px;
+  background: url("https://jdniki.github.io/signup/images/next-page.svg");
+  background-size: contain;
+}
+.container .sign-form #next-page:hover {
+  background: url("https://jdniki.github.io/signup/images/next-pagehover.svg");
+  background-size: contain;
+}
+.container .sign-form .questions {
+  list-style: none;
+  -webkit-transition: height 0.4s;
+  transition: height 0.4s;
+  width: 88%;
+  display: inline-block;
+  height: 80px;
+}
+.container .sign-form .questions li {
+  position: absolute;
+  width: 500px;
+}
+.container .sign-form .questions li span {
+  display: block;
+  margin-bottom: 10px;
+}
+.container .sign-form .questions li input {
+  width: 100%;
+  font-size: .9em;
+  color: #f2f2f2;
+  margin: 0.3em 0 1em 0;
+  border: none;
+  background: none;
+  border-bottom: 3px solid #fff;
+  padding: 0.5em 0.1em;
+  transition: all 0.5s ease;
+}
+.container .sign-form .questions li input:focus {
+  outline: none;
+  border-bottom: 3px solid #6A79A6;
+}
+.container .sign-form .questions li:not(:first-child) {
+  opacity: 0;
+  margin-top: 150px;
+}
+.container .sign-form .questions li #viewpswd {
+  position: absolute;
+  opacity: 0;
+}
+.container .sign-form .questions li #show-pwd {
+  margin: -2.75em 0em;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  right: 0;
+  color: rgba(255,255,255,0.4);
+  cursor: pointer;
+}
+.container .sign-form .questions li #show-pwd.view {
+  background: url("https://jdniki.github.io/signup/images/view.svg");
+  background-size: contain;
+}
+.container .sign-form .questions li #show-pwd.hide {
+  background: url("https://jdniki.github.io/signup/images/hide.svg");
+  background-size: contain;
+}
+.container .sign-form .questions li #show-pwd:active, .container .sign-form .questions li #show-pwd:focus {
+  background: url("https://jdniki.github.io/signup/images/hide.svg");
+  background-size: contain;
+}
+.container .sign-form .questions li select.country {
+  position: absolute;
+  width: 4.5em;
+  font-size: 0.7em;
+  color: #f2f2f2;
+  height: 70px;
+  background: transparent;
+  border: 1px solid #ccc;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: none;
+}
+.container .sign-form .questions li #phone {
+  padding-left: 5em;
+}
+.container .error-message {
+  color: rgba(207,0,0,0.56);
+  font-size: 14px;
+  margin-top: 10px;
+  padding-bottom: 30px;
+  background: #B7BED8;
+}
+::-webkit-input-placeholder {
+  font-size: 0.9em;
+  color: rgba(255,255,255,0.7);
+}
+:-moz-placeholder {
+  font-size: 0.9em;
+  color: rgba(255,255,255,0.7);
+}
+::-moz-placeholder {
+  font-size: 0.9em;
+  color: rgba(255,255,255,0.7);
+}
+:-ms-input-placeholder {
+  font-size: 0.9em;
+  color: rgba(255,255,255,0.7);
+}
+@-webkit-keyframes moveUpFromDown {
+  from {
+    -webkit-transform: translateY(100%);
+ }
+  to {
+    -webkit-transform: translateY(0);
+ }
+}
+@keyframes moveUpFromDown {
+  from {
+    -webkit-transform: translateY(100%);
+    transform: translateY(100%);
+ }
+  to {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+ }
+}

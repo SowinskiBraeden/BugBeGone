@@ -19,12 +19,13 @@ var (
 
 type User struct {
 	ID           primitive.ObjectID `bson:"_id"`
+	Firstname    string             `json:"firstname"`
+	Lastname     string             `json:"lastname"`
 	Username     string             `json:"username" validate:"required"`
 	Email        string             `json:"email" validate:"required"`
 	Password     string             `json:"-" validate:"min=10,max=32"`
 	TempPassword bool               `json:"temppassword"`
-	AccountType  string             `json:"accounttype"`
-	PhotoName    string             `json:"photoname"` // name of photo in db
+	Subscription string             `json:"subscription"` // standard, professional, business
 	Created_at   time.Time          `json:"created_at"`
 	Updated_at   time.Time          `json:"updated_at"`
 }

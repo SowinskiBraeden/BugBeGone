@@ -3,24 +3,18 @@ package controllers
 import (
 	"context"
 	"encoding/base64"
-	"fmt"
-	"io/ioutil"
-	"os"
-	"strings"
 	"time"
 
 	"github.com/SowinskiBraeden/BugBeGone/database"
 	"github.com/SowinskiBraeden/BugBeGone/models"
 	"github.com/SowinskiBraeden/gfbmb/messageBox"
 	"github.com/gofiber/fiber/v2"
-	"github.com/google/uuid"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
 var userCollection *mongo.Collection = database.OpenCollection(database.Client, "users")
-var imageCollection *mongo.Collection = database.OpenCollection(database.Client, "images")
 
 func toBase64(b []byte) string {
 	return base64.StdEncoding.EncodeToString(b)
@@ -28,12 +22,11 @@ func toBase64(b []byte) string {
 
 func Register(c *fiber.Ctx) error {
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
-	email := c.FormValue("email")
-	pass1 := c.FormValue("password")
-	pass2 := c.FormValue("password2")
+	firstname := c.FormValue("firstname")
+	lastname := c.FormValue("lastname")
 	username := c.FormValue("username")
-	accountType := c.FormValue("accountType")
-	file, _ := c.FormFile("image")
+	email := c.FormValue("email")
+	password := c.FormValue("password")
 
 	if email == "" {
 		cancel()
@@ -43,18 +36,10 @@ func Register(c *fiber.Ctx) error {
 			"email":    email,
 		})
 	}
-	if pass1 == "" {
+	if password == "" {
 		cancel()
 		return c.Status(fiber.StatusBadRequest).Render("register", fiber.Map{
-			"errorMsg": messageBox.NewWarningBox("Missing Password"),
-			"username": username,
-			"email":    email,
-		})
-	}
-	if pass2 == "" {
-		cancel()
-		return c.Status(fiber.StatusBadRequest).Render("register", fiber.Map{
-			"errorMsg": messageBox.NewWarningBox("Please retype your password"),
+			"errorMsg": messageBox.NewWarningBox("Please enter your password"),
 			"username": username,
 			"email":    email,
 		})
@@ -92,17 +77,8 @@ func Register(c *fiber.Ctx) error {
 		})
 	}
 
-	if pass1 != pass2 {
-		cancel()
-		return c.Status(fiber.StatusBadRequest).Render("register", fiber.Map{
-			"errorMsg": messageBox.NewWarningBox("The passwords don't match"),
-			"username": username,
-			"email":    email,
-		})
-	}
-
 	var user models.User
-	if user.CheckPasswordStrength(pass1) {
+	if user.CheckPasswordStrength(password) {
 		cancel()
 		return c.Status(fiber.StatusBadRequest).Render("register", fiber.Map{
 			"errorMsg": messageBox.NewWarningBox("Your password must contain at least 1 lowercase, 1 uppercase & 1 special character"),
@@ -111,75 +87,15 @@ func Register(c *fiber.Ctx) error {
 		})
 	}
 
-	accountType = strings.ToUpper(accountType)
-	if accountType != "T" && accountType != "R" && accountType != "A" {
-		cancel()
-		return c.Status(fiber.StatusBadRequest).Render("register", fiber.Map{
-			"errorMsg": messageBox.NewWarningBox("There appears to be an error with your account type, please try again"),
-			"username": username,
-			"email":    email,
-		})
-	}
-
 	user.Username = username
+	user.Firstname = firstname
+	user.Lastname = lastname
 	user.Email = email
-	user.Password = user.HashPassword(pass1)
+	user.Password = user.HashPassword(password)
 	user.TempPassword = false
-	user.AccountType = accountType
 	user.ID = primitive.NewObjectID()
 	user.Created_at, _ = time.Parse(time.RFC3339, time.Now().Format(time.RFC3339))
 	user.Updated_at, _ = time.Parse(time.RFC3339, time.Now().Format(time.RFC3339))
-
-	var photo models.Photo
-	if file != nil {
-		// Save image to local
-		uniqueId := uuid.New()
-		filename := strings.Replace(uniqueId.String(), "-", "", -1)
-		fileExt := strings.Split(file.Filename, ".")[1]
-		image := fmt.Sprintf("%s.%s", filename, fileExt)
-		err := c.SaveFile(file, fmt.Sprintf("./database/images/%s", image))
-		if err != nil {
-			cancel()
-			return c.Status(fiber.StatusInternalServerError).Render("register", fiber.Map{
-				"errorMsg": "the image could not be saved",
-				"username": username,
-				"email":    email,
-			})
-		}
-
-		// Read the entire file into a byte slice
-		bytes, err := ioutil.ReadFile(fmt.Sprintf("./database/images/%s", image))
-		if err != nil {
-			cancel()
-			return c.Status(fiber.StatusInternalServerError).Render("register", fiber.Map{
-				"errorMsg": "the image could not be read",
-				"username": username,
-				"email":    email,
-			})
-		}
-
-		var base64Encoding string = toBase64(bytes)
-
-		photo.Name = uuid.New().String()
-		photo.Created_at, _ = time.Parse(time.RFC3339, time.Now().Format(time.RFC3339))
-		photo.Updated_at, _ = time.Parse(time.RFC3339, time.Now().Format(time.RFC3339))
-		photo.ID = primitive.NewObjectID()
-
-		photo.Base64 = base64Encoding
-
-		// Remove local image
-		os.Remove(fmt.Sprintf("./database/images/%s", image))
-	} else {
-		photo.Name = uuid.New().String()
-		photo.Created_at, _ = time.Parse(time.RFC3339, time.Now().Format(time.RFC3339))
-		photo.Updated_at, _ = time.Parse(time.RFC3339, time.Now().Format(time.RFC3339))
-		photo.ID = primitive.NewObjectID()
-
-		defaultImage, _ := os.ReadFile("./database/defaultImage.txt")
-		photo.Base64 = string(defaultImage)
-
-	}
-	user.PhotoName = photo.Name
 
 	_, insertErr := userCollection.InsertOne(ctx, user)
 	if insertErr != nil {
@@ -191,15 +107,6 @@ func Register(c *fiber.Ctx) error {
 		})
 	}
 
-	_, insertErr = imageCollection.InsertOne(ctx, photo)
-	if insertErr != nil {
-		cancel()
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-			"success": false,
-			"message": "the student default photo could not be inserted",
-			"error":   insertErr,
-		})
-	}
 	defer cancel()
 
 	return c.Status(fiber.StatusNotImplemented).JSON(fiber.Map{})
