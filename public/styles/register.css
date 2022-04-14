@@ -13,8 +13,7 @@
   box-sizing: border-box;
 }
 body {
-  background: #A0A9CC;
-  color: #fff;
+  background: #191b17;
   font-size: 1.5em;
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", sans-serif;
   font-weight: 100;
@@ -62,6 +61,7 @@ body {
   list-style: none;
 }
 .nav-link{
+  color: var(--night-rider);
   text-transform: uppercase;
   font-size: 0.95rem;
   letter-spacing: 1.5px;
@@ -77,8 +77,8 @@ body {
   display: none;
 }
 .container {
-  background: #B7BED8;
-  color: #6A79A6;
+  background: #495069;
+  color: var(--white-smoke);
   display: inline-block;
   padding: 0em 2em;
   margin: 6em auto;
@@ -93,7 +93,7 @@ body {
 }
 .container .navigation ol {
   list-style: none;
-  background: #B7BED8;
+  background: #495069;
   position: absolute;
   padding: 30px 0;
   width: 600px;
@@ -200,44 +200,28 @@ body {
   background: url("https://jdniki.github.io/signup/images/hide.svg");
   background-size: contain;
 }
-.container .sign-form .questions li select.country {
-  position: absolute;
-  width: 4.5em;
-  font-size: 0.7em;
-  color: #f2f2f2;
-  height: 70px;
-  background: transparent;
-  border: 1px solid #ccc;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  border: none;
-}
-.container .sign-form .questions li #phone {
-  padding-left: 5em;
-}
 .container .error-message {
   color: rgba(207,0,0,0.56);
   font-size: 14px;
   margin-top: 10px;
   padding-bottom: 30px;
-  background: #B7BED8;
+  background: #495069;
 }
 ::-webkit-input-placeholder {
   font-size: 0.9em;
-  color: rgba(255,255,255,0.7);
+  color: rgb(255, 255, 255);
 }
 :-moz-placeholder {
   font-size: 0.9em;
-  color: rgba(255,255,255,0.7);
+  color: rgb(255, 255, 255);
 }
 ::-moz-placeholder {
   font-size: 0.9em;
-  color: rgba(255,255,255,0.7);
+  color: rgb(255, 255, 255);
 }
 :-ms-input-placeholder {
   font-size: 0.9em;
-  color: rgba(255,255,255,0.7);
+  color: rgb(255, 255, 255);
 }
 @-webkit-keyframes moveUpFromDown {
   from {
