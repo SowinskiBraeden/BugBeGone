@@ -4,6 +4,7 @@ import (
 	"html/template"
 	"os"
 
+	"github.com/SowinskiBraeden/BugBeGone/controllers"
 	"github.com/SowinskiBraeden/BugBeGone/routes"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
@@ -20,6 +21,8 @@ func main() {
 			return template.HTML(s)
 		},
 	)
+
+	controllers.Init()
 
 	app := fiber.New(fiber.Config{
 		Views: engine,

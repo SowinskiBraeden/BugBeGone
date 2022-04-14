@@ -19,6 +19,7 @@ var (
 
 type User struct {
 	ID           primitive.ObjectID `bson:"_id"`
+	UID          string             `json:"uid"`
 	Firstname    string             `json:"firstname"`
 	Lastname     string             `json:"lastname"`
 	Username     string             `json:"username" validate:"required"`
@@ -26,6 +27,8 @@ type User struct {
 	Password     string             `json:"-" validate:"min=10,max=32"`
 	TempPassword bool               `json:"temppassword"`
 	Subscription string             `json:"subscription"` // standard, professional, business
+	Attempts     int                `json:"attempts"`
+	Disabled     bool               `json:""`
 	Created_at   time.Time          `json:"created_at"`
 	Updated_at   time.Time          `json:"updated_at"`
 }
