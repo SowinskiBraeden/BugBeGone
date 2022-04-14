@@ -31,24 +31,18 @@ func Register(c *fiber.Ctx) error {
 		cancel()
 		return c.Status(fiber.StatusBadRequest).Render("register", fiber.Map{
 			"errorMsg": "Missing Email",
-			"username": username,
-			"email":    email,
 		})
 	}
 	if password == "" {
 		cancel()
 		return c.Status(fiber.StatusBadRequest).Render("register", fiber.Map{
 			"errorMsg": "Please enter your password",
-			"username": username,
-			"email":    email,
 		})
 	}
 	if username == "" {
 		cancel()
 		return c.Status(fiber.StatusBadRequest).Render("register", fiber.Map{
 			"errorMsg": "Missing Username",
-			"username": username,
-			"email":    email,
 		})
 	}
 
@@ -63,16 +57,12 @@ func Register(c *fiber.Ctx) error {
 		cancel()
 		return c.Status(fiber.StatusInternalServerError).Render("register", fiber.Map{
 			"errorMsg": "Failed to search database",
-			"username": username,
-			"email":    email,
 		})
 	}
 	if count > 0 {
 		cancel()
 		return c.Status(fiber.StatusInternalServerError).Render("register", fiber.Map{
 			"errorMsg": "An account already exists with that email or username",
-			"username": username,
-			"email":    email,
 		})
 	}
 
@@ -99,16 +89,17 @@ func Register(c *fiber.Ctx) error {
 	_, insertErr := userCollection.InsertOne(ctx, user)
 	if insertErr != nil {
 		cancel()
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-			"success": false,
-			"message": "the student could not be inserted",
-			"error":   insertErr,
+		return c.Status(fiber.StatusInternalServerError).Render("register", fiber.Map{
+			"errorMsg": "the user could not be inserted",
 		})
 	}
 
 	defer cancel()
 
-	return c.Status(fiber.StatusNotImplemented).JSON(fiber.Map{})
+	return c.Render("login", fiber.Map{
+		"msg":      "Successfully registered an account",
+		"errorMsg": "",
+	})
 }
 
 func Login(c *fiber.Ctx) error {
