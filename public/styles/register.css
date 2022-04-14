@@ -1,3 +1,10 @@
+:root{
+  --mount-meadow: #1bbc9c;
+  --white-smoke: #f0f0f0;
+  --night-rider: #343434;
+  --black: #191b17;
+  --transition: all 0.5s ease-in-out;
+}
 * {
   margin: 0;
   padding: 0;
@@ -13,6 +20,62 @@ body {
   font-weight: 100;
   text-align: center;
 }
+#signup:hover {
+  cursor: pointer;
+}
+.container2{
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+.navbar{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 999;
+}
+.brand-and-toggler{
+  font-size: 1.65rem;
+  padding: 0.8rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.navbar-brand{
+  font-weight: 500;
+  color: var(--night-rider);
+  text-decoration: none;
+}
+.navbar-brand span{
+  color: var(--mount-meadow);
+}
+.navbar-toggler{
+  border: none;
+  color: var(--mount-meadow);
+}
+.navbar-nav{
+  margin: 0.2rem 0 0.6rem 0;
+}
+.nav-item{
+  padding: 0.6rem 0;
+  list-style: none;
+}
+.nav-link{
+  text-transform: uppercase;
+  font-size: 0.95rem;
+  letter-spacing: 1.5px;
+  font-weight: 400;
+  opacity: 0.65;
+  transition: var(--transition);
+  text-decoration: none;
+}
+.nav-link:hover{
+  color: var(--mount-meadow)!important;
+}
+.navbar-collapse{
+  display: none;
+}
 .container {
   background: #B7BED8;
   color: #6A79A6;
@@ -20,6 +83,10 @@ body {
   padding: 0em 2em;
   margin: 6em auto;
   box-shadow: 0 50px 50px rgba(0,0,0,0.2);
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, -25%);
 }
 .container .navigation {
   text-align: left;
@@ -189,4 +256,51 @@ body {
     -webkit-transform: translateY(0);
     transform: translateY(0);
  }
+}
+
+@media screen and (min-width: 992px){
+  .navbar{
+      background: transparent;
+      margin-top: 1.4rem;
+  }
+  .navbar .container2{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+  }
+  .navbar-brand{
+      color: var(--white-smoke);
+      font-size: 2rem;
+  }
+  .navbar-toggler{
+      display: none;
+  }
+  .navbar-collapse{
+      display: block!important;
+  }
+  .navbar-nav{
+      display: flex;
+      margin: 0;
+  }
+  .nav-item{
+      margin-left: 1.8rem;
+  }
+  .nav-link{
+      color: var(--white-smoke);
+  }
+
+  /* navbar change */
+  .cng-navbar{
+      -webkit-box-shadow: 0 2px 5px 0 rgba(207, 205, 207, 0.3);
+      -moz-box-shadow: 0 2px 5px 0 rgba(207, 205, 207, 0.3);
+      box-shadow: 0 2px 5px 0 rgba(207, 205, 207, 0.3);
+      margin-top: 0;
+      background: #fff;
+  }
+  .cng-navbar .navbar-brand{
+      color: var(--night-rider);
+  }
+  .cng-navbar .nav-link{
+      color: var(--night-rider);
+  }
 }

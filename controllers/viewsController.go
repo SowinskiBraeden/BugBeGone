@@ -12,7 +12,7 @@ func MainPage(c *fiber.Ctx) error {
 
 func RegisterPage(c *fiber.Ctx) error {
 	return c.Render("register", fiber.Map{
-		"errorMsg": messageBox.EmptyMessageBox(),
+		"errorMsg": "",
 	})
 }
 

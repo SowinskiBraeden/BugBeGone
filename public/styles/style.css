@@ -568,9 +568,6 @@ section{
    .pricing .row{
        grid-template-columns: repeat(3, 1fr);
    }
-   .testimonial-item p{
-       width: 60%;
-   }
    .contact .row{
        column-gap: 4rem;
    }

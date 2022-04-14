@@ -8,6 +8,44 @@
   <script src="https://kit.fontawesome.com/ccff26c93b.js" crossorigin="anonymous"></script>
 </head>
 <body>
+  <nav class="navbar">
+    <div class="container2">
+      <div class="brand-and-toggler">
+        <a href="/" class="navbar-brand">
+          BugBeGone
+        </a>
+        <button type="button" class="navbar-toggler" id="navbar-toggler">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+
+      <div class="navbar-collapse">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a href="/#info" class="nav-link">info</a>
+          </li>
+          <li class="nav-item">
+            <a href="/#feature" class="nav-link">feature</a>
+          </li>
+          <li class="nav-item">
+            <a href="/#team" class="nav-link">team</a>
+          </li>
+          <li class="nav-item">
+            <a href="/#pricing" class="nav-link">pricing</a>
+          </li>
+          <li class="nav-item">
+            <a href="/#contact" class="nav-link">contact</a>
+          </li>
+          <li class="nav-item">
+            <a href="/register" class="nav-link">sign up</a>
+          </li>
+          <li class="nav-item">
+            <a href="/login" class="nav-link">login</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
   <div class="container">
     <div class="navigation">
       <ol>
@@ -17,7 +55,7 @@
         <li><a href="#"   data-ref="viewpswd">Password</a></li>
       </ol>
     </div>
-    <form id="sign-form" class="sign-form" action="">
+    <form id="sign-form" class="sign-form" action="/register" method="POST">
       <ol class="questions">
         <li>
           <span><label for="name">Hi, What is your First Name?</label></span>
@@ -42,11 +80,11 @@
           <span id="show-pwd" class="view"></span>
         </li>
         <li><p style="margin-top: 45px;font-size: 32pt;float:right">
-          <a href="#" style="color:white;text-decoration:none" id="signup">sign up</a></p>
+          <a ref="javascript:{}" onclick="document.getElementById('sign-form').submit();" style="color:white;text-decoration:none" id="signup">sign up</a></p>
         </li>
       </ol>
       <div id="next-page" alt="Kiwi standing on oval"></div>
-      <div class="error-message">{{ unescape .errorMsg }}</div>
+      <div class="error-message">{{ .errorMsg }}</div>
     </form>
   <h1 id="wf" style="opacity:0;width: 600px; margin-top:1.1em;display:none; margin-bottom:1em">Thank you</h1>
 </body>

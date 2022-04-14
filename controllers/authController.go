@@ -7,7 +7,6 @@ import (
 
 	"github.com/SowinskiBraeden/BugBeGone/database"
 	"github.com/SowinskiBraeden/BugBeGone/models"
-	"github.com/SowinskiBraeden/gfbmb/messageBox"
 	"github.com/gofiber/fiber/v2"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -31,7 +30,7 @@ func Register(c *fiber.Ctx) error {
 	if email == "" {
 		cancel()
 		return c.Status(fiber.StatusBadRequest).Render("register", fiber.Map{
-			"errorMsg": messageBox.NewWarningBox("Missing Email"),
+			"errorMsg": "Missing Email",
 			"username": username,
 			"email":    email,
 		})
@@ -39,7 +38,7 @@ func Register(c *fiber.Ctx) error {
 	if password == "" {
 		cancel()
 		return c.Status(fiber.StatusBadRequest).Render("register", fiber.Map{
-			"errorMsg": messageBox.NewWarningBox("Please enter your password"),
+			"errorMsg": "Please enter your password",
 			"username": username,
 			"email":    email,
 		})
@@ -47,7 +46,7 @@ func Register(c *fiber.Ctx) error {
 	if username == "" {
 		cancel()
 		return c.Status(fiber.StatusBadRequest).Render("register", fiber.Map{
-			"errorMsg": messageBox.NewWarningBox("Missing Username"),
+			"errorMsg": "Missing Username",
 			"username": username,
 			"email":    email,
 		})
@@ -63,7 +62,7 @@ func Register(c *fiber.Ctx) error {
 	if err != nil {
 		cancel()
 		return c.Status(fiber.StatusInternalServerError).Render("register", fiber.Map{
-			"errorMsg": messageBox.NewWarningBox("Failed to search database"),
+			"errorMsg": "Failed to search database",
 			"username": username,
 			"email":    email,
 		})
@@ -71,7 +70,7 @@ func Register(c *fiber.Ctx) error {
 	if count > 0 {
 		cancel()
 		return c.Status(fiber.StatusInternalServerError).Render("register", fiber.Map{
-			"errorMsg": messageBox.NewWarningBox("An account already exists with that email or username"),
+			"errorMsg": "An account already exists with that email or username",
 			"username": username,
 			"email":    email,
 		})
@@ -81,7 +80,7 @@ func Register(c *fiber.Ctx) error {
 	if user.CheckPasswordStrength(password) {
 		cancel()
 		return c.Status(fiber.StatusBadRequest).Render("register", fiber.Map{
-			"errorMsg": messageBox.NewWarningBox("Your password must contain at least 1 lowercase, 1 uppercase & 1 special character"),
+			"errorMsg": "Your password must contain at least 1 lowercase, 1 uppercase & 1 special character",
 			"username": username,
 			"email":    email,
 		})
