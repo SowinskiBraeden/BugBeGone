@@ -13,7 +13,6 @@ require (
 )
 
 require (
-	github.com/SowinskiBraeden/gfbmb v0.0.0-20220411232833-d7374a8d6af0
 	github.com/andybalholm/brotli v1.0.4 // indirect
 	github.com/go-stack/stack v1.8.0 // indirect
 	github.com/golang/snappy v0.0.3 // indirect
