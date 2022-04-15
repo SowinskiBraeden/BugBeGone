@@ -1,2 +1,6 @@
 *.js linguist-detectable=false
 *.css linguist-detectable=false
+*.scss linguist-detectable=false
+*.coffee linguist-detectable=false
+*.handlebars linguist-detectable=false
+*.hbs linguist-detectable=false
