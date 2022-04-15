@@ -235,5 +235,5 @@ func Login(c *fiber.Ctx) error {
 	}
 	c.Cookie(&cookie)
 
-	return c.Status(fiber.StatusNotImplemented).Render("dasboard", fiber.Map{})
+	return c.Status(fiber.StatusNotImplemented).Redirect("/dashboard")
 }
