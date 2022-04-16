@@ -451,14 +451,6 @@ section{
    .detail-item{
        margin: 0;
    }
-   .video h2{
-       font-size: 2.6rem;
-   }
-   .video p{
-       font-size: 1.2rem;
-       width: 75%;
-       margin: 0 auto;
-   }
    .team-item{
        margin: 0;
    }
@@ -474,11 +466,6 @@ section{
    }
    .pricing-item{
        margin: 0;
-   }
-   .testimonial-item p{
-       width: 75%;
-       margin-left: auto;
-       margin-right: auto;
    }
    .contact .row{
        display: grid;
