@@ -538,9 +538,6 @@ section{
    .feature-right{
        margin-top: 0;
    }
-   .video p{
-       width: 60%;
-   }
 }
 
 @media screen and (min-width: 1200px){
