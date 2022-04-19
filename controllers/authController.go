@@ -57,8 +57,8 @@ func Register(c *fiber.Ctx) error {
 	// Check if email or username is previously registered
 	count, err := userCollection.CountDocuments(ctx, bson.M{
 		"$or": []bson.M{
-			bson.M{"email": email},
-			bson.M{"username": username},
+			{"email": email},
+			{"username": username},
 		}},
 	)
 	if err != nil {
