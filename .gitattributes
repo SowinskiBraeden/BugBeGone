@@ -4,3 +4,4 @@
 *.coffee linguist-detectable=false
 *.handlebars linguist-detectable=false
 *.hbs linguist-detectable=false
+*.html linquist-detectable=false
