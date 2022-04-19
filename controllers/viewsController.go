@@ -54,8 +54,11 @@ func DashboardPage(c *fiber.Ctx) error {
 	}
 
 	return c.Status(fiber.StatusAccepted).Render("dashboard", fiber.Map{
-		"msg":      "",
-		"errorMsg": "",
-		"user":     user,
+		"msg":       "",
+		"errorMsg":  "",
+		"username":  user.Username,
+		"email":     user.Email,
+		"firstname": user.Firstname,
+		"lastname":  user.Lastname,
 	})
 }

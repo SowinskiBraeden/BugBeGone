@@ -47,6 +47,9 @@ h1, h2, h3, h4, h5, h6{
   font-weight: 400;
   text-transform: capitalize;
 }
+#signup:hover {
+  cursor: pointer;
+}
 .text{
   margin: 0.6rem 0;
   opacity: 0.8;

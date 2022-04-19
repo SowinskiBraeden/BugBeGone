@@ -141,7 +141,12 @@ func Login(c *fiber.Ctx) error {
 	}
 
 	var user models.User
-	err := userCollection.FindOne(ctx, bson.M{"username": username}).Decode(&user)
+	err := userCollection.FindOne(ctx, bson.M{
+		"$or": []bson.M{
+			{"email": username},
+			{"username": username},
+		},
+	}).Decode(&user)
 	defer cancel()
 
 	if err != nil {
@@ -166,7 +171,12 @@ func Login(c *fiber.Ctx) error {
 
 		_, updateErr := userCollection.UpdateOne(
 			ctx,
-			bson.M{"username": username},
+			bson.M{
+				"$or": []bson.M{
+					{"email": username},
+					{"username": username},
+				},
+			},
 			update,
 		)
 		if updateErr != nil {
