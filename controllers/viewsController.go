@@ -11,7 +11,32 @@ import (
 
 // Render Index
 func MainPage(c *fiber.Ctx) error {
-	return c.Render("index", fiber.Map{})
+	cookie := c.Cookies("jwt")
+
+	token, err := jwt.ParseWithClaims(cookie, &jwt.StandardClaims{}, func(token *jwt.Token) (interface{}, error) {
+		return []byte(SecretKey), nil
+	})
+	// This returns not authorized for both admin and student
+	if err != nil {
+		return c.Status(fiber.StatusUnauthorized).Render("index", fiber.Map{
+			"loggedIn": false,
+		})
+	}
+
+	claims := token.Claims.(*jwt.StandardClaims)
+	uid := claims.Issuer
+
+	var user models.User
+	findErr := userCollection.FindOne(context.TODO(), bson.M{"uid": uid}).Decode(&user)
+	if findErr != nil {
+		return c.Status(fiber.StatusUnauthorized).Render("index", fiber.Map{
+			"loggedIn": false,
+		})
+	}
+
+	return c.Status(fiber.StatusAccepted).Render("index", fiber.Map{
+		"loggedIn": true,
+	})
 }
 
 func RegisterPage(c *fiber.Ctx) error {
@@ -21,22 +46,15 @@ func RegisterPage(c *fiber.Ctx) error {
 }
 
 func LoginPage(c *fiber.Ctx) error {
-	return c.Render("login", fiber.Map{
-		"msg":      "",
-		"errorMsg": "",
-	})
-}
-
-func DashboardPage(c *fiber.Ctx) error {
 	cookie := c.Cookies("jwt")
 
 	token, err := jwt.ParseWithClaims(cookie, &jwt.StandardClaims{}, func(token *jwt.Token) (interface{}, error) {
 		return []byte(SecretKey), nil
 	})
-	// This returns not authorized for both admin and student
+	// This returns not authorized
 	if err != nil {
 		return c.Status(fiber.StatusUnauthorized).Render("login", fiber.Map{
-			"msg":      "not authorized",
+			"msg":      "",
 			"errorMsg": "",
 		})
 	}
@@ -48,7 +66,7 @@ func DashboardPage(c *fiber.Ctx) error {
 	findErr := userCollection.FindOne(context.TODO(), bson.M{"uid": uid}).Decode(&user)
 	if findErr != nil {
 		return c.Status(fiber.StatusUnauthorized).Render("login", fiber.Map{
-			"msg":      "User not found",
+			"msg":      "",
 			"errorMsg": "",
 		})
 	}

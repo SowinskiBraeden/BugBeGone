@@ -11,11 +11,12 @@ func Setup(app *fiber.App) {
 	app.Get("/", controllers.MainPage)
 	app.Get("/register", controllers.RegisterPage)
 	app.Get("/login", controllers.LoginPage)
-	app.Get("/dashboard", controllers.DashboardPage)
+	app.Get("/dashboard", controllers.LoginPage)
 
 	// Authentication handlers
 	app.Post("/register", controllers.Register)
 	app.Post("/login", controllers.Login)
+	app.Post("/logout", controllers.Logout)
 
 	// 404 Handler
 	app.Use(func(c *fiber.Ctx) error {

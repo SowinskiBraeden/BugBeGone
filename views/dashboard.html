@@ -6,8 +6,12 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-  {{ .username }}
-  {{ .email }}
-  {{ .firstname }} {{ .lastname }}
+  <h3>{{ .username }}</h3>
+  <h3>{{ .email }}</h3>
+  <h3>{{ .firstname }} {{ .lastname }}</h3>
+
+  <form action="/logout" method="POST">
+    <button type="submit">Logout</button>
+  </form>
 </body>
 </html>
