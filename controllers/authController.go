@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"context"
-	"fmt"
 	"os"
 	"time"
 
@@ -250,7 +249,6 @@ func Login(c *fiber.Ctx) error {
 }
 
 func Logout(c *fiber.Ctx) error {
-	fmt.Println("here")
 	cookie := fiber.Cookie{
 		Name:     "jwt",
 		Value:    "",
@@ -259,7 +257,5 @@ func Logout(c *fiber.Ctx) error {
 	}
 	c.Cookie(&cookie)
 
-	return c.Status(fiber.StatusOK).Render("index", fiber.Map{
-		"loggedIn": false,
-	})
+	return c.Status(fiber.StatusOK).Redirect("/")
 }

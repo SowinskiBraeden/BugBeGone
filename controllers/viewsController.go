@@ -71,12 +71,32 @@ func LoginPage(c *fiber.Ctx) error {
 		})
 	}
 
+	return c.Status(fiber.StatusAccepted).Redirect("/dashboard")
+}
+
+func DashboardPage(c *fiber.Ctx) error {
+	cookie := c.Cookies("jwt")
+
+	token, err := jwt.ParseWithClaims(cookie, &jwt.StandardClaims{}, func(token *jwt.Token) (interface{}, error) {
+		return []byte(SecretKey), nil
+	})
+	// This returns not authorized
+	if err != nil {
+		return c.Status(fiber.StatusUnauthorized).Redirect("login")
+	}
+
+	claims := token.Claims.(*jwt.StandardClaims)
+	uid := claims.Issuer
+
+	var user models.User
+	findErr := userCollection.FindOne(context.TODO(), bson.M{"uid": uid}).Decode(&user)
+	if findErr != nil {
+		return c.Status(fiber.StatusUnauthorized).Redirect("/login")
+	}
+
 	return c.Status(fiber.StatusAccepted).Render("dashboard", fiber.Map{
-		"msg":       "",
-		"errorMsg":  "",
-		"username":  user.Username,
-		"email":     user.Email,
-		"firstname": user.Firstname,
-		"lastname":  user.Lastname,
+		"errorMsg": "",
+		"msg":      "",
+		"user":     user,
 	})
 }
