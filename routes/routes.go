@@ -12,6 +12,7 @@ func Setup(app *fiber.App) {
 	app.Get("/register", controllers.RegisterPage)
 	app.Get("/login", controllers.LoginPage)
 	app.Get("/dashboard", controllers.DashboardPage)
+	app.Get("/profile", controllers.ProfilePage)
 
 	// Authentication handlers
 	app.Post("/register", controllers.Register)

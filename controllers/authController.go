@@ -27,6 +27,29 @@ func Init() {
 	SecretKey = os.Getenv("secret")
 }
 
+func IsAuthorized(c *fiber.Ctx) (bool, models.User) {
+	cookie := c.Cookies("jwt")
+
+	token, err := jwt.ParseWithClaims(cookie, &jwt.StandardClaims{}, func(token *jwt.Token) (interface{}, error) {
+		return []byte(SecretKey), nil
+	})
+	// This returns not authorized
+	if err != nil {
+		return false, models.User{}
+	}
+
+	claims := token.Claims.(*jwt.StandardClaims)
+	uid := claims.Issuer
+
+	var user models.User
+	findErr := userCollection.FindOne(context.TODO(), bson.M{"uid": uid}).Decode(&user)
+	if findErr != nil {
+		return false, models.User{}
+	}
+
+	return true, user
+}
+
 func Register(c *fiber.Ctx) error {
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	firstname := c.FormValue("firstname")
